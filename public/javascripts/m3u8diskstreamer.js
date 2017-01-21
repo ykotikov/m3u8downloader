@@ -1,6 +1,5 @@
 // Node modules
 var path = require('path');
-var mkdirp = require('mkdirp');
 var fetch = require('fetch');
 var fs = require('fs');
 var request = require('request');

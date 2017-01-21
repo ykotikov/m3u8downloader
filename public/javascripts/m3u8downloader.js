@@ -2,7 +2,6 @@ var path = require('path');
 var fetch = require('fetch');
 var parse = require('./m3u8parser.js');
 var fs = require('fs');
-var mkdirp = require('mkdirp');
 
 
 function downloadPlaylistSegments(options, complete) {
@@ -10,8 +9,7 @@ function downloadPlaylistSegments(options, complete) {
     var uri = options.uri;
     var dir = options.dir;
     var fileName = options.fileName;
-
-    var m3u8FileName = path.basename(uri.split("?")[0]);
+    var m3u8FileName = path.basename(uri.split(".")[0]);
 
     fetch.fetchUrl(uri, function getPlaylist(err, meta, body) {
 
@@ -34,19 +32,13 @@ function downloadPlaylistSegments(options, complete) {
         function downloadPlaylist(playlist) {
 
             var rootUri = path.dirname(playlist.uri);
-            download = playlist.download.bind(playlist);
-            download(rootUri, downloadPlaylist, pipeStream);
+            streamToDisk = playlist.streamToDisk.bind(playlist);
+            streamToDisk(rootUri, fileName, dir, downloadPlaylist, streamingWasFinished);
         }
 
-        function pipeStream(content) {
+        function streamingWasFinished(fileName, path) {
 
-            mkdirp.sync(dir);
-            var path = dir + '/' + fileName;
-            fs.writeFile(path, content, function (err) {
-                if (err) console.error("ERROR")
-            });
-
-            console.info(fileName + ' was created in : ' + path);
+            return complete(err, path)
         }
     });
 }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/hlsdownloader.iml" filepath="$PROJECT_DIR$/.idea/hlsdownloader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../m3u8downloader/.idea/m3u8downloader.iml" filepath="$PROJECT_DIR$/../m3u8downloader/.idea/m3u8downloader.iml" />
     </modules>
   </component>
 </project>
