@@ -3,7 +3,7 @@ var path = require('path');
 var fetch = require('fetch');
 var streamer = require('./m3u8diskstreamer.js');
 
-function parseMediaPlaylist(mediaPlaylist, downloadPlaylist) {
+function parseMediaPlaylist(mediaPlaylist, streamSegmentsToDisk) {
 
     fetch.fetchUrl(mediaPlaylist.uri, function (err, meta, body) {
 
@@ -25,7 +25,7 @@ function parseMediaPlaylist(mediaPlaylist, downloadPlaylist) {
         mediaPlaylist.manifestLines = manifestLines;
         mediaPlaylist.streamToDisk = streamer;
 
-        downloadPlaylist(mediaPlaylist);
+        streamSegmentsToDisk(mediaPlaylist);
     });
 }
 
